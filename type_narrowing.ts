@@ -53,6 +53,11 @@ function summ(a: BigObject) {
         if (typeof elem.cvalue === 'object') return summ(elem.cvalue);
     });
     let sum = 0;
+    for(let i = 0; i < x.length; i++) {
+        if(x.indexOf(2022) >= 0) {
+            x.splice(x.indexOf(2022), 1)
+        }
+    }
     for (let i = 0; i < x.length; i++) {
         sum += x[i];
     }
