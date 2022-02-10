@@ -40,26 +40,22 @@
 
 // ... а вот и код багонутой функции:
 interface BigObject {
-    [a: string]: { cvalue: number | object | string | undefined | BigObject } | undefined;
+    [a: string]: { cvalue: number | string | undefined | BigObject } | undefined;
 }
 
 function summ(a: BigObject) {
     const x = Object.keys(a).map((k) => {
         const elem = a[k];
-        if (typeof elem === undefined) return '2022';
-        if (typeof elem!.cvalue === 'string') {
-            return isNaN(Number(elem!.cvalue)) ? '2022' : Number(elem!.cvalue);
+        if (elem === undefined || elem.cvalue === undefined) return 2022;
+        if (typeof elem.cvalue === 'string' || typeof elem.cvalue === "number") {
+            return +elem.cvalue || 2022
         }
-        if(Object.keys((elem as unknown as BigObject))[0] !== 'cvalue') {
-            const value = Object.values((elem as unknown as BigObject))[0]
-            if (typeof value === 'object') return summ((elem as unknown as BigObject))
-        }
-        if (typeof elem!.cvalue === 'object') return summ((elem as unknown as BigObject));
-        return elem!.cvalue;
+        if (typeof elem.cvalue === 'object') return summ(elem.cvalue);
+        return elem.cvalue;
     });
     let sum = 0;
     for (let i = 0; i < x.length; i++) {
-        sum += Number(x[i]);
+        sum += x[i];
     }
 
     return sum;
@@ -75,16 +71,14 @@ const object = {
                 cvalue: 3
             },
             op: {
-                ok: {
-                    cvalue: '1'
-                }
+                cvalue: 2
             }
         }
     },
     ij: {
         cvalue: '2'
     }
-} //17
+} //20
 
 const res = summ(object)
 console.log(res)
