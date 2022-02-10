@@ -51,7 +51,6 @@ function summ(a: BigObject) {
             return +elem.cvalue || 2022
         }
         if (typeof elem.cvalue === 'object') return summ(elem.cvalue);
-        return elem.cvalue;
     });
     let sum = 0;
     for (let i = 0; i < x.length; i++) {
