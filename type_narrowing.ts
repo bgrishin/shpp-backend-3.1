@@ -48,7 +48,11 @@ function summ(a: BigObject) {
         const elem = a[k];
         if (elem === undefined || elem.cvalue === undefined) return 2022;
         if (typeof elem.cvalue === 'string' || typeof elem.cvalue === "number") {
-            return +elem.cvalue || 2022
+            if(+elem.cvalue > 0) {
+                return +elem.cvalue
+            }else{
+                return +elem.cvalue === 0 ? 0 : 2022
+            }
         }
         if (typeof elem.cvalue === 'object') return summ(elem.cvalue);
     });
@@ -64,6 +68,7 @@ function summ(a: BigObject) {
 
     return sum;
 }
+
 
 const object = {
     mg: {
