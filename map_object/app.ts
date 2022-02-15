@@ -9,10 +9,10 @@
 // const result = mapObject({ "roma" : 5, "vasya": 2 }, (x) => x > 3)
 // console.log(result)
 
-function mapObject<Object extends Record<string, any>, Arg, Func, NewObject>(obj: Object, func: (x: Arg) => Func): NewObject {
-    let NewObject: NewObject | Record<string, any> = {}
+function mapObject<Object extends Record<string, Arg | Func>, Arg, Func, NewObject extends Record<string, Arg | Func>>(obj: Object, func: (x: Arg) => Func): NewObject {
+    let NewObject: NewObject | Record<string, Arg | Func> = {}
     for(let item in obj) {
-        NewObject[item] = func(obj[item])
+        NewObject[item] = func((obj[item] as Arg))
     }
     return (NewObject as NewObject)
 }
