@@ -1,5 +1,5 @@
 
-function mapObject<Object extends Record<string, any>, NewObject> (obj: Object, func: (val: Object[keyof Object]) => NewObject) {
+function mapObject<Object extends Record<string, Object[keyof Object]>, NewObject> (obj: Object, func: (val: Object[keyof Object]) => NewObject) {
     let NewObject: Partial<Record<keyof Object, NewObject>> = {}
     for(let item in obj) {
         NewObject[item] = func(obj[item])
