@@ -9,12 +9,12 @@
 // const result = mapObject({ "roma" : 5, "vasya": 2 }, (x) => x > 3)
 // console.log(result)
 
-function mapObject<Object extends Record<string, Arg | Func>, Arg, Func, NewObject extends Record<string, Arg | Func>>(obj: Object, func: (x: Arg) => Func): NewObject {
-    let NewObject: NewObject | Record<string, Arg | Func> = {}
+function mapObject<Object extends Record<string, any>, NewObject> (obj: Object, func: (val: Object[keyof Object]) => NewObject) {
+    let NewObject: Partial<Record<keyof Object, NewObject>> = {}
     for(let item in obj) {
-        NewObject[item] = func((obj[item] as Arg))
+        NewObject[item] = func(obj[item])
     }
-    return (NewObject as NewObject)
+    return NewObject
 }
 
 const result = mapObject({ "roma" : 5, "vasya": 2 }, (x) => x > 2)
